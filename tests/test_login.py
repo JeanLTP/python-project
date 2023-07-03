@@ -1,7 +1,6 @@
 import pytest
-from selenium.webdriver.common.by import By
-import conftest
 from conftest import setup_teardown
+from pages.home_page import HomePage
 from pages.login_page import LoginPage
 
 
@@ -10,11 +9,14 @@ from pages.login_page import LoginPage
 @pytest.mark.login
 class TestLogin:
     def test_login(self):
-        driver = conftest.driver
+        # Instancia os objetos a serem usados
         login_page = LoginPage()
+        home_page = HomePage()
 
+        # Efetua login
         login_page.login("standard_user", "secret_sauce")
-        # driver.find_element(By.ID, "user-name").send_keys("standard_user")
-        # driver.find_element(By.ID, "password").send_keys("secret_sauce")
-        # driver.find_element(By.ID, "login-button").click()
-        assert driver.find_element(By.XPATH, "*//span[@class='title']").is_displayed()
+
+        # Verifica se login foi realizado com sucesso
+        home_page.verify_login()
+
+        # assert driver.find_element(By.XPATH, "*//span[@class='title']").is_displayed()

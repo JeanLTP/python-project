@@ -10,11 +10,9 @@ from pages.login_page import LoginPage
 @pytest.mark.login
 class TestInvalidLogin:
     def test_invalid_login(self):
+        message_error_login = "Epic sadface: Username and password do not match any user in this service"
         driver = conftest.driver
         login_page = LoginPage()
-
         login_page.login("standard_user", "secret_sauce123")
-        #driver.find_element(By.ID, "user-name").send_keys("standard_user")
-        #driver.find_element(By.ID, "password").send_keys("secret_sauce123")
-        #driver.find_element(By.ID, "login-button").click()
-        assert driver.find_elements(By.XPATH, "//div[@class='error-message-container error']")
+        login_page.verify_error_login()
+        login_page.compare_text_error_login(message_error_login)

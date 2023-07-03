@@ -1,7 +1,8 @@
 import pytest
-from selenium.webdriver.common.by import By
 import conftest
 from conftest import setup_teardown
+from pages.cart_page import CartPage
+from pages.home_page import HomePage
 from pages.login_page import LoginPage
 
 
@@ -10,27 +11,29 @@ from pages.login_page import LoginPage
 @pytest.mark.addItems
 class TestAddItems:
     def test_add_items(self):
-        driver = conftest.driver
-
+        home_page = HomePage()
         login_page = LoginPage()
         login_page.login("standard_user", "secret_sauce")
+        cart_page = CartPage()
+
+        product1 = "Sauce Labs Backpack"
+        product2 = "Sauce Labs Bike Light"
 
         # Add items
-        driver.find_element(By.XPATH, "//*[@class='inventory_item_name' and text()='Sauce Labs Backpack']").click()
-        driver.find_element(By.XPATH, "//*[text()='Add to cart']").click()
+        home_page.add_item_cart(product1)
 
-        # Verifing if backpack was add to cart
-        driver.find_element(By.XPATH, "//*[@class='shopping_cart_link']").click()
-        assert driver.find_element(By.XPATH, "//*[@class='inventory_item_name' and text()='Sauce Labs Backpack']").is_displayed()
+        # Verifying if backpack was add to cart
+        home_page.acess_cart()
+        cart_page.verify_item_cart(product1)
 
-        # Click to return home
-        driver.find_element(By.ID, "continue-shopping").click()
+        # Click to return shopping
+        cart_page.return_shopping()
 
         # Add more one item to cart
-        driver.find_element(By.XPATH, "//*[@class='inventory_item_name' and text()='Sauce Labs Bike Light']").click()
-        driver.find_element(By.XPATH, "//*[text()='Add to cart']").click()
+        home_page.add_item_cart(product2)
 
-        # Verifing cart
-        driver.find_element(By.XPATH, "//*[@class='shopping_cart_link']").click()
-        assert driver.find_element(By.XPATH, "//*[@class='inventory_item_name' and text()='Sauce Labs Backpack']").is_displayed()
-        assert driver.find_element(By.XPATH, "//*[@class='inventory_item_name' and text()='Sauce Labs Bike Light']").is_displayed()
+        # Verifying cart
+        home_page.acess_cart()
+        cart_page.verify_item_cart(product1)
+        cart_page.verify_item_cart(product2)
+
