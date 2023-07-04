@@ -1,12 +1,10 @@
 import pytest
-import conftest
 from conftest import setup_teardown
 from pages.cart_page import CartPage
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 
 
-# Login
 @pytest.mark.usefixtures("setup_teardown")
 @pytest.mark.addItems
 class TestAddItems:
@@ -36,4 +34,3 @@ class TestAddItems:
         home_page.acess_cart()
         cart_page.verify_item_cart(product1)
         cart_page.verify_item_cart(product2)
-
