@@ -18,8 +18,8 @@ class LoginPage(BasePage):
         self.cli(self.btn_login)
 
     def verify_error_login(self):
-        self.verify_el_exis(self.error_login)
+        self.verify_el_exist(self.error_login)
 
-    def compare_text_error_login (self, expected_text):
+    def compare_text_error_login(self, expected_text):
         found_text = self.find_text(self.error_login)
         assert found_text == expected_text, f"O texto encontrado foi '{found_text}' mas era experado o texto '{expected_text}'"
