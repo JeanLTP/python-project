@@ -22,4 +22,4 @@ class LoginPage(BasePage):
 
     def compare_text_error_login(self, expected_text):
         found_text = self.find_text(self.error_login)
-        assert found_text == expected_text, f"O texto encontrado foi '{found_text}' mas era experado o texto '{expected_text}'"
+        assert found_text == expected_text, f"O texto encontrado foi '{found_text}' mas era esperado o texto '{expected_text}'"
