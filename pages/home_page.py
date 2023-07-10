@@ -35,6 +35,5 @@ class HomePage(BasePage):
         if items:
             random_element = random.choice(items)
             random_element.click()
-            time.sleep(2)
         else:
             print("Nenhum elemento encontrado.")

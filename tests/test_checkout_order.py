@@ -24,17 +24,10 @@ class TestCheckoutOrder:
         # Add random item
         home_page.random_item()
 
-        # feito sem usar o page obejcts
-        # items = driver.find_elements(By.XPATH, "//button[@class='btn btn_primary btn_small btn_inventory']")
-        # if items:
-        #     random_element = random.choice(items)
-        #     random_element.click()
-        #     time.sleep(2)
-        # else:
-        #     print("Nenhum elemento encontrado.")
-
-
-        # Verifying if backpack was add to cart
         home_page.acess_cart()
 
-        # cart_page.verify_item_cart(product1)
+        # Click checkout
+        cart_page.checkout()
+
+        # Completing forms to checkout
+        cart_page.checkout_inf("Teste", "checkout", "99999999")
